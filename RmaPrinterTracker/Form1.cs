@@ -25,11 +25,13 @@ namespace RmaPrinterTracker
                 conn.Open();
                 if (conn.State == ConnectionState.Open)
                 {
-                    label1.Text = "Connected to MySql";
+                    connectionStatus.Text = "Connected to MySql";
+                    connectionStatus.ForeColor = Color.Green;
                 }
                 else
                 {
-                    label1.Text = "Failed";
+                    connectionStatus.Text = "Failed";
+                    connectionStatus.ForeColor = Color.Red;
                 }
             }
             catch (Exception ex)
@@ -45,12 +47,34 @@ namespace RmaPrinterTracker
 			using (conn = Connection.getConnection("localhost", "rma_printer", 3306, "root", "Sfn8tjpansv!"))
 			{
 				conn.Open();
-				MySqlDataAdapter sqlDataAdapter = new MySqlDataAdapter("SELECT * FROM printer", conn);
+				MySqlDataAdapter sqlDataAdapter = new MySqlDataAdapter("SELECT rmaid AS RMA, company_name AS 'Company Name', closed AS Closed, issue_date AS 'Issue Date', faulty_sn AS 'Faulty SN', replacement_sn AS 'Replacement SN', returned_date AS 'Returned Date', notes AS Notes, diagnosis AS Diagnosis, bulkink AS 'Bulk Ink?', issue_category AS 'Issue Catagory', result AS Result, approved AS Approved FROM printer", conn);
 				DataTable dataTable = new DataTable();
 				sqlDataAdapter.Fill(dataTable);
-
+              
 				dataGridView1.DataSource = dataTable;
-			}
+                this.dataGridView1.Columns[0].Width = 50;
+                this.dataGridView1.Columns[3].Width = 70;
+                this.dataGridView1.Columns[6].Width = 70;
+                this.dataGridView1.Columns[7].Width = 218;
+                this.dataGridView1.Columns[8].Width = 218;
+                this.dataGridView1.Columns[9].Width = 50;
+                this.dataGridView1.Columns[12].Width = 60;
+            }
 		}
-	}
+
+        private void Clear_Button_Click(object sender, EventArgs e)
+        {
+            rma_Text.ResetText();
+            company_Text.ResetText();
+            serialnumber_Text.ResetText();
+            printertype_CBox.Items.Clear();
+            serialnumber_CBox.Items.Clear();
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2();
+            form2.ShowDialog();
+        }
+    }
 }
