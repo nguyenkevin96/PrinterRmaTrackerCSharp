@@ -13,13 +13,15 @@ namespace RmaPrinterTracker
 {
     public partial class Form1 : Form
     {
+		MySqlConnection conn = null;
         public Form1()
         {
             InitializeComponent();
 
-            try
+			conn = Connection.getConnection("localhost", "rma_printer", 3306, "root", "Sfn8tjpansv!");	
+
+			try
             {
-                MySqlConnection conn = new MySqlConnection("datasource=localhost;port=3306;username=root;password=Sfn8tjpansv!");
                 conn.Open();
                 if (conn.State == ConnectionState.Open)
                 {
@@ -34,6 +36,21 @@ namespace RmaPrinterTracker
             {
                 MessageBox.Show(ex.Message);
             }
+
+			loadData();
         }
-    }
+
+		private void loadData()
+		{
+			using (conn = Connection.getConnection("localhost", "rma_printer", 3306, "root", "Sfn8tjpansv!"))
+			{
+				conn.Open();
+				MySqlDataAdapter sqlDataAdapter = new MySqlDataAdapter("SELECT * FROM printer", conn);
+				DataTable dataTable = new DataTable();
+				sqlDataAdapter.Fill(dataTable);
+
+				dataGridView1.DataSource = dataTable;
+			}
+		}
+	}
 }
