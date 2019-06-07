@@ -18,7 +18,7 @@ namespace RmaPrinterTracker
         {
             InitializeComponent();
 
-			conn = Connection.getConnection("localhost", "rma_printer", 3306, "root", "Sfn8tjpansv!");	
+			conn = Connection.getConnection();	
 
 			try
             {
@@ -44,11 +44,11 @@ namespace RmaPrinterTracker
 
 		private void loadData()
 		{
-			using (conn = Connection.getConnection("localhost", "rma_printer", 3306, "root", "Sfn8tjpansv!"))
+			using (conn)
 			{
-				conn.Open();
 				MySqlDataAdapter sqlDataAdapter = new MySqlDataAdapter("SELECT rmaid AS RMA, company_name AS 'Company Name', closed AS Closed, issue_date AS 'Issue Date', faulty_sn AS 'Faulty SN', replacement_sn AS 'Replacement SN', returned_date AS 'Returned Date', notes AS Notes, diagnosis AS Diagnosis, bulkink AS 'Bulk Ink?', issue_category AS 'Issue Catagory', result AS Result, approved AS Approved FROM printer", conn);
 				DataTable dataTable = new DataTable();
+                dataTable.Clear();
 				sqlDataAdapter.Fill(dataTable);
               
 				dataGridView1.DataSource = dataTable;
@@ -75,6 +75,11 @@ namespace RmaPrinterTracker
         {
             Form2 form2 = new Form2();
             form2.ShowDialog();
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            loadData();
         }
     }
 }
