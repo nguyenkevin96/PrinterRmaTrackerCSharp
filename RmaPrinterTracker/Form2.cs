@@ -15,7 +15,7 @@ namespace RmaPrinterTracker
     public partial class Form2 : Form
     {
         MySqlConnection conn = Connection.getConnection();
-        
+
         public Form2()
         {
             InitializeComponent();
@@ -28,10 +28,13 @@ namespace RmaPrinterTracker
 
         private void addPrinter()
         {
-            string insertStatement = "INSERT INTO printer VALUES (@rmaid, @company, @closed, @issueDate, @faulty, @replacement, @returnDate, @notes, @diagnosis, @bulkink, @issueCategory, @result, @approved, @printertypeid, @printerstage";
-            using (/*Add Connection string find out why connection won't work*/){
+            using (var conn = new MySqlConnection("Server=localhost;database=rma_printer;UID=root;password=Sfn8tjpansv!"))
+            {
                 conn.Open();
-                using(var query = new SqlCommand(insertStatement)){
+                string insertStatement = "INSERT INTO printer (rmaid, company_name, closed, issue_date, faulty_sn, replacement_sn, returned_date, notes, diagnosis, bulkink, issue_category, result, approved, printertid, printer_stageid) " +
+                    "VALUES (@rmaid, @company, @closed, @issueDate, @faulty, @replacement, @returnDate, @notes, @diagnosis, @bulkink, @issueCategory, @result, @approved, @printertypeid, @printerstage";
+                using (MySqlCommand query = new MySqlCommand(insertStatement, conn))
+                {
                     query.Parameters.AddWithValue("@rmaid", Int32.Parse(rma_Text.Text));
                     query.Parameters.AddWithValue("@company", customer_Text.Text);
                     query.Parameters.AddWithValue("@closed", closed_CBox.SelectedItem.ToString());
@@ -45,8 +48,42 @@ namespace RmaPrinterTracker
                     query.Parameters.AddWithValue("@issueCategory", issue_CBox.SelectedItem.ToString());
                     query.Parameters.AddWithValue("@result", result_CBox.SelectedItem.ToString());
                     query.Parameters.AddWithValue("@approved", approved_CBox.SelectedItem.ToString() == "Yes" ? true : false);
-                    query.Parameters.AddWithValue("@printertypeid", printer_CBox.SelectedIndex + 1);
-                    query.Parameters.AddWithValue("@printerstage", stage_CBox.SelectedIndex + 1);
+                    query.Parameters.AddWithValue("@printertypeid", (printer_CBox.SelectedIndex + 1));
+                    query.Parameters.AddWithValue("@printerstage", (stage_CBox.SelectedIndex + 1));
+
+                    MessageBox.Show(String.Format("Printer Information: \n" +
+                    "Rma:{0}\n" +
+                    "Company:{1}\n" +
+                    "Closed?:{2}\n" +
+                    "Issue Date:{3}\n" +
+                    "Faulty SN:{4}\n" +
+                    "Replacement SN:{5}\n" +
+                    "Return Date:{6}\n" +
+                    "Notes:{7}\n" +
+                    "Diagnosis:{8}\n" +
+                    "Bulk Ink?:{9}\n" +
+                    "Issue Category:{10}\n" +
+                    "Result:{11}\n" +
+                    "Approved:{12}\n" +
+                    "Printer Type:{13} (Id:{14})\n" +
+                    "Printer Stage:{15} (Id:{16})",
+                    Int32.Parse(rma_Text.Text),
+                    customer_Text.Text,
+                    closed_CBox.SelectedItem.ToString(),
+                    issue_Date.Value,
+                    faulty_Text.Text,
+                    replacement_Text.Text,
+                    return_Date.Value,
+                    notes_TextA.Text,
+                    diagnosis_TextA.Text,
+                    bulkink_CBox.SelectedItem.ToString() == "Yes" ? true : false,
+                    issue_CBox.SelectedItem.ToString(),
+                    result_CBox.SelectedItem.ToString(),
+                    approved_CBox.SelectedItem.ToString() == "Yes" ? true : false,
+                    printer_CBox.SelectedItem.ToString(),
+                    printer_CBox.SelectedIndex + 1,
+                    stage_CBox.SelectedItem.ToString(),
+                    stage_CBox.SelectedIndex + 1));
 
                     query.ExecuteNonQuery();
                 }
@@ -59,3 +96,4 @@ namespace RmaPrinterTracker
         }
     }
 }
+
