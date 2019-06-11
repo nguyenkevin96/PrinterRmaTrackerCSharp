@@ -30,10 +30,14 @@ namespace RmaPrinterTracker
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.neuralabelReplacement_Printer = new System.Windows.Forms.DataGridView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.Edit = new System.Windows.Forms.ToolStripMenuItem();
+            this.Delete = new System.Windows.Forms.ToolStripMenuItem();
             this.connectionStatus = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -49,7 +53,7 @@ namespace RmaPrinterTracker
             this.rma_Text = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.clear_Button = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.addprinter_Button = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -70,7 +74,8 @@ namespace RmaPrinterTracker
             this.refresh_Button = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.neuralabelReplacement_Printer)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -94,26 +99,29 @@ namespace RmaPrinterTracker
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1415, 454);
+            this.tabControl1.Size = new System.Drawing.Size(1458, 454);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.dataGridView1);
+            this.tabPage1.Controls.Add(this.neuralabelReplacement_Printer);
             this.tabPage1.Controls.Add(this.connectionStatus);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabPage1.Size = new System.Drawing.Size(1407, 428);
+            this.tabPage1.Size = new System.Drawing.Size(1450, 425);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Neuralabel - Replacement";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // neuralabelReplacement_Printer
             // 
-            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.neuralabelReplacement_Printer.AllowUserToAddRows = false;
+            this.neuralabelReplacement_Printer.AllowUserToDeleteRows = false;
+            this.neuralabelReplacement_Printer.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.neuralabelReplacement_Printer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.neuralabelReplacement_Printer.ContextMenuStrip = this.contextMenuStrip1;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -121,17 +129,42 @@ namespace RmaPrinterTracker
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.Location = new System.Drawing.Point(8, 6);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1391, 394);
-            this.dataGridView1.TabIndex = 0;
+            this.neuralabelReplacement_Printer.DefaultCellStyle = dataGridViewCellStyle1;
+            this.neuralabelReplacement_Printer.Location = new System.Drawing.Point(8, 6);
+            this.neuralabelReplacement_Printer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.neuralabelReplacement_Printer.MultiSelect = false;
+            this.neuralabelReplacement_Printer.Name = "neuralabelReplacement_Printer";
+            this.neuralabelReplacement_Printer.ReadOnly = true;
+            this.neuralabelReplacement_Printer.RowHeadersWidth = 51;
+            this.neuralabelReplacement_Printer.RowTemplate.Height = 24;
+            this.neuralabelReplacement_Printer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.neuralabelReplacement_Printer.Size = new System.Drawing.Size(1434, 394);
+            this.neuralabelReplacement_Printer.TabIndex = 0;
+            this.neuralabelReplacement_Printer.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.RowColor);
+            //this.neuralabelReplacement_Printer.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_MouseRightClick);
+            this.neuralabelReplacement_Printer.CellContextMenuStripNeeded += new System.Windows.Forms.DataGridViewCellContextMenuStripNeededEventHandler(this.contextMenuDataGridView);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Edit,
+            this.Delete});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(211, 80);
+            this.contextMenuStrip1.Text = "Hello";
+            // 
+            // Edit
+            // 
+            this.Edit.Name = "Edit";
+            this.Edit.Size = new System.Drawing.Size(210, 24);
+            this.Edit.Text = "Edit"; 
+            // 
+            // Delete
+            // 
+            this.Delete.Name = "Delete";
+            this.Delete.Size = new System.Drawing.Size(210, 24);
+            this.Delete.Text = "Delete";
             // 
             // connectionStatus
             // 
@@ -140,38 +173,38 @@ namespace RmaPrinterTracker
             this.connectionStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.connectionStatus.Name = "connectionStatus";
             this.connectionStatus.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.connectionStatus.Size = new System.Drawing.Size(0, 13);
+            this.connectionStatus.Size = new System.Drawing.Size(0, 17);
             this.connectionStatus.TabIndex = 2;
             // 
             // tabPage2
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabPage2.Size = new System.Drawing.Size(1407, 428);
+            this.tabPage2.Size = new System.Drawing.Size(1450, 425);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Neuralabel - RMA";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabPage3.Size = new System.Drawing.Size(1407, 428);
+            this.tabPage3.Size = new System.Drawing.Size(1450, 425);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "NeuraLog - Replacement";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // tabPage4
             // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabPage4.Size = new System.Drawing.Size(1407, 428);
+            this.tabPage4.Size = new System.Drawing.Size(1450, 425);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "NeuraLog - RMA";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -183,7 +216,7 @@ namespace RmaPrinterTracker
             this.title.Location = new System.Drawing.Point(557, 9);
             this.title.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.title.Name = "title";
-            this.title.Size = new System.Drawing.Size(308, 37);
+            this.title.Size = new System.Drawing.Size(383, 46);
             this.title.TabIndex = 3;
             this.title.Text = "Printer RMA Tracker";
             this.title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -212,20 +245,21 @@ namespace RmaPrinterTracker
             this.serialnumber_Text.Location = new System.Drawing.Point(358, 51);
             this.serialnumber_Text.Margin = new System.Windows.Forms.Padding(4);
             this.serialnumber_Text.Name = "serialnumber_Text";
-            this.serialnumber_Text.Size = new System.Drawing.Size(251, 20);
+            this.serialnumber_Text.Size = new System.Drawing.Size(251, 22);
             this.serialnumber_Text.TabIndex = 9;
+            this.serialnumber_Text.TextChanged += new System.EventHandler(this.Serialnumber_Text_TextChanged);
             // 
             // serialnumber_CBox
             // 
             this.serialnumber_CBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.serialnumber_CBox.FormattingEnabled = true;
             this.serialnumber_CBox.Items.AddRange(new object[] {
-            "Faulty",
-            "Replacement"});
+            "Faulty SN",
+            "Replacement SN"});
             this.serialnumber_CBox.Location = new System.Drawing.Point(240, 51);
             this.serialnumber_CBox.Margin = new System.Windows.Forms.Padding(4);
             this.serialnumber_CBox.Name = "serialnumber_CBox";
-            this.serialnumber_CBox.Size = new System.Drawing.Size(110, 21);
+            this.serialnumber_CBox.Size = new System.Drawing.Size(110, 24);
             this.serialnumber_CBox.TabIndex = 1;
             // 
             // company_Text
@@ -233,8 +267,9 @@ namespace RmaPrinterTracker
             this.company_Text.Location = new System.Drawing.Point(298, 23);
             this.company_Text.Margin = new System.Windows.Forms.Padding(4);
             this.company_Text.Name = "company_Text";
-            this.company_Text.Size = new System.Drawing.Size(311, 20);
+            this.company_Text.Size = new System.Drawing.Size(311, 22);
             this.company_Text.TabIndex = 8;
+            this.company_Text.TextChanged += new System.EventHandler(this.Company_Text_TextChanged);
             // 
             // label4
             // 
@@ -242,7 +277,7 @@ namespace RmaPrinterTracker
             this.label4.Location = new System.Drawing.Point(205, 27);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(85, 13);
+            this.label4.Size = new System.Drawing.Size(112, 17);
             this.label4.TabIndex = 5;
             this.label4.Text = "Company Name:";
             // 
@@ -257,8 +292,9 @@ namespace RmaPrinterTracker
             this.printertype_CBox.Location = new System.Drawing.Point(86, 51);
             this.printertype_CBox.Margin = new System.Windows.Forms.Padding(4);
             this.printertype_CBox.Name = "printertype_CBox";
-            this.printertype_CBox.Size = new System.Drawing.Size(146, 21);
+            this.printertype_CBox.Size = new System.Drawing.Size(146, 24);
             this.printertype_CBox.TabIndex = 6;
+            this.printertype_CBox.SelectedIndexChanged += new System.EventHandler(this.Printertype_CBox_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -266,7 +302,7 @@ namespace RmaPrinterTracker
             this.label2.Location = new System.Drawing.Point(9, 53);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(67, 13);
+            this.label2.Size = new System.Drawing.Size(90, 17);
             this.label2.TabIndex = 1;
             this.label2.Text = "Printer Type:";
             // 
@@ -275,8 +311,9 @@ namespace RmaPrinterTracker
             this.rma_Text.Location = new System.Drawing.Point(86, 23);
             this.rma_Text.Margin = new System.Windows.Forms.Padding(4);
             this.rma_Text.Name = "rma_Text";
-            this.rma_Text.Size = new System.Drawing.Size(111, 20);
+            this.rma_Text.Size = new System.Drawing.Size(111, 22);
             this.rma_Text.TabIndex = 5;
+            this.rma_Text.TextChanged += new System.EventHandler(this.Rma_Text_TextChanged);
             // 
             // label1
             // 
@@ -284,7 +321,7 @@ namespace RmaPrinterTracker
             this.label1.Location = new System.Drawing.Point(9, 27);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 13);
+            this.label1.Size = new System.Drawing.Size(91, 17);
             this.label1.TabIndex = 5;
             this.label1.Text = "Rma Number";
             // 
@@ -299,15 +336,15 @@ namespace RmaPrinterTracker
             this.clear_Button.UseVisualStyleBackColor = true;
             this.clear_Button.Click += new System.EventHandler(this.Clear_Button_Click);
             // 
-            // button1
+            // addprinter_Button
             // 
-            this.button1.Location = new System.Drawing.Point(1319, 626);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(108, 33);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Add Printer";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this.addprinter_Button.Location = new System.Drawing.Point(1362, 626);
+            this.addprinter_Button.Name = "addprinter_Button";
+            this.addprinter_Button.Size = new System.Drawing.Size(108, 33);
+            this.addprinter_Button.TabIndex = 6;
+            this.addprinter_Button.Text = "Add Printer";
+            this.addprinter_Button.UseVisualStyleBackColor = true;
+            this.addprinter_Button.Click += new System.EventHandler(this.Button1_Click);
             // 
             // panel1
             // 
@@ -325,7 +362,7 @@ namespace RmaPrinterTracker
             this.label5.Location = new System.Drawing.Point(3, 15);
             this.label5.MaximumSize = new System.Drawing.Size(65, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(64, 26);
+            this.label5.Size = new System.Drawing.Size(58, 51);
             this.label5.TabIndex = 0;
             this.label5.Text = "Outstanding RMA";
             // 
@@ -345,7 +382,7 @@ namespace RmaPrinterTracker
             this.label3.Location = new System.Drawing.Point(3, 16);
             this.label3.MaximumSize = new System.Drawing.Size(90, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 26);
+            this.label3.Size = new System.Drawing.Size(83, 34);
             this.label3.TabIndex = 0;
             this.label3.Text = "Closed/Recieved RMA";
             // 
@@ -364,7 +401,7 @@ namespace RmaPrinterTracker
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(12, 18);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(40, 13);
+            this.label6.Size = new System.Drawing.Size(53, 17);
             this.label6.TabIndex = 0;
             this.label6.Text = "Loaner";
             // 
@@ -383,7 +420,7 @@ namespace RmaPrinterTracker
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(9, 18);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(48, 13);
+            this.label7.Size = new System.Drawing.Size(63, 17);
             this.label7.TabIndex = 0;
             this.label7.Text = "Upgrade";
             // 
@@ -403,7 +440,7 @@ namespace RmaPrinterTracker
             this.label8.Location = new System.Drawing.Point(8, 14);
             this.label8.MaximumSize = new System.Drawing.Size(60, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(49, 26);
+            this.label8.Size = new System.Drawing.Size(53, 34);
             this.label8.TabIndex = 0;
             this.label8.Text = "Possible Sale";
             // 
@@ -422,7 +459,7 @@ namespace RmaPrinterTracker
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(16, 18);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(34, 13);
+            this.label9.Size = new System.Drawing.Size(42, 17);
             this.label9.TabIndex = 9;
             this.label9.Text = "Swap";
             // 
@@ -441,7 +478,7 @@ namespace RmaPrinterTracker
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(19, 18);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(28, 13);
+            this.label10.Size = new System.Drawing.Size(36, 17);
             this.label10.TabIndex = 9;
             this.label10.Text = "Sale";
             // 
@@ -460,7 +497,7 @@ namespace RmaPrinterTracker
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(3, 18);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(57, 13);
+            this.label11.Size = new System.Drawing.Size(74, 17);
             this.label11.TabIndex = 9;
             this.label11.Text = "Demo Unit";
             // 
@@ -481,7 +518,7 @@ namespace RmaPrinterTracker
             // 
             // refresh_Button
             // 
-            this.refresh_Button.Location = new System.Drawing.Point(1238, 630);
+            this.refresh_Button.Location = new System.Drawing.Point(1264, 629);
             this.refresh_Button.Name = "refresh_Button";
             this.refresh_Button.Size = new System.Drawing.Size(75, 23);
             this.refresh_Button.TabIndex = 10;
@@ -493,10 +530,10 @@ namespace RmaPrinterTracker
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1444, 664);
+            this.ClientSize = new System.Drawing.Size(1491, 664);
             this.Controls.Add(this.refresh_Button);
             this.Controls.Add(this.panel9);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.addprinter_Button);
             this.Controls.Add(this.clear_Button);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.title);
@@ -507,7 +544,8 @@ namespace RmaPrinterTracker
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.neuralabelReplacement_Printer)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -538,7 +576,7 @@ namespace RmaPrinterTracker
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label connectionStatus;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView neuralabelReplacement_Printer;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Label title;
@@ -552,7 +590,7 @@ namespace RmaPrinterTracker
         private TextBox company_Text;
         private TextBox serialnumber_Text;
         private Button clear_Button;
-        private Button button1;
+        private Button addprinter_Button;
         private Panel panel1;
         private Panel panel2;
         private Panel panel3;
@@ -571,6 +609,9 @@ namespace RmaPrinterTracker
         private Label label11;
         private Panel panel9;
         private Button refresh_Button;
+        private ContextMenuStrip contextMenuStrip1;
+        private ToolStripMenuItem Edit;
+        private ToolStripMenuItem Delete;
     }
 }
 
