@@ -30,14 +30,10 @@ namespace RmaPrinterTracker
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.neuralabelReplacement_Printer = new System.Windows.Forms.DataGridView();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.Edit = new System.Windows.Forms.ToolStripMenuItem();
-            this.Delete = new System.Windows.Forms.ToolStripMenuItem();
             this.connectionStatus = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -72,10 +68,10 @@ namespace RmaPrinterTracker
             this.label11 = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
             this.refresh_Button = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.neuralabelReplacement_Printer)).BeginInit();
-            this.contextMenuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -121,7 +117,6 @@ namespace RmaPrinterTracker
             this.neuralabelReplacement_Printer.AllowUserToDeleteRows = false;
             this.neuralabelReplacement_Printer.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.neuralabelReplacement_Printer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.neuralabelReplacement_Printer.ContextMenuStrip = this.contextMenuStrip1;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -141,30 +136,7 @@ namespace RmaPrinterTracker
             this.neuralabelReplacement_Printer.Size = new System.Drawing.Size(1434, 394);
             this.neuralabelReplacement_Printer.TabIndex = 0;
             this.neuralabelReplacement_Printer.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.RowColor);
-            //this.neuralabelReplacement_Printer.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_MouseRightClick);
-            this.neuralabelReplacement_Printer.CellContextMenuStripNeeded += new System.Windows.Forms.DataGridViewCellContextMenuStripNeededEventHandler(this.contextMenuDataGridView);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Edit,
-            this.Delete});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(211, 80);
-            this.contextMenuStrip1.Text = "Hello";
-            // 
-            // Edit
-            // 
-            this.Edit.Name = "Edit";
-            this.Edit.Size = new System.Drawing.Size(210, 24);
-            this.Edit.Text = "Edit"; 
-            // 
-            // Delete
-            // 
-            this.Delete.Name = "Delete";
-            this.Delete.Size = new System.Drawing.Size(210, 24);
-            this.Delete.Text = "Delete";
+            this.neuralabelReplacement_Printer.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView1_MouseRightClick);
             // 
             // connectionStatus
             // 
@@ -526,11 +498,21 @@ namespace RmaPrinterTracker
             this.refresh_Button.UseVisualStyleBackColor = true;
             this.refresh_Button.Click += new System.EventHandler(this.Button2_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(20, 631);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1491, 664);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.refresh_Button);
             this.Controls.Add(this.panel9);
             this.Controls.Add(this.addprinter_Button);
@@ -545,7 +527,6 @@ namespace RmaPrinterTracker
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.neuralabelReplacement_Printer)).EndInit();
-            this.contextMenuStrip1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -609,9 +590,7 @@ namespace RmaPrinterTracker
         private Label label11;
         private Panel panel9;
         private Button refresh_Button;
-        private ContextMenuStrip contextMenuStrip1;
-        private ToolStripMenuItem Edit;
-        private ToolStripMenuItem Delete;
+        private Button button1;
     }
 }
 

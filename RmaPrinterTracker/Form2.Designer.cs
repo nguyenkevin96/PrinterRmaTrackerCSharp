@@ -417,7 +417,7 @@
             "Print Quality",
             "Marks",
             "Error Code",
-            "Network Board",
+            "Network",
             "Freeze",
             "Other"});
             this.issue_CBox.Location = new System.Drawing.Point(100, 50);

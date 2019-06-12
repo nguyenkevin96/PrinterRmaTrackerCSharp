@@ -11,7 +11,7 @@ namespace RmaPrinterTracker
 {
     class Connection
     {
-        public static MySqlConnection getConnection()
+        public static MySqlConnection GetConnection()
         {
             String sqlConnectionQuery = String.Format("datasource={0};database={1};port={2};username={3};password={4}", "localhost", "rma_printer", 3306, "root", "Sfn8tjpansv!");
 

@@ -13,16 +13,19 @@ namespace RmaPrinterTracker
 {
     public partial class Form1 : Form
     {
-		MySqlConnection conn = null;
-        DataTable dataTable = new DataTable();
+		//readonly MySqlConnection conn = null;
+        readonly DataTable dataTable = new DataTable();
+        string selectedRowRmaNumber;
+        MySqlDataAdapter sqlDataAdapter;
 
         public Form1()
         {
             InitializeComponent();
 
-			conn = Connection.getConnection();	
+            var conn = new MySqlConnection("Server = localhost; database = rma_printer; UID = root; password = Sfn8tjpansv!;Max Pool Size=200");
 
-			try
+
+            try
             {
                 conn.Open();
                 if (conn.State == ConnectionState.Open)
@@ -41,17 +44,15 @@ namespace RmaPrinterTracker
                 MessageBox.Show(ex.Message);
             }
 
-			loadData();
+			LoadData();
         }
 
-
-
-		private void loadData()
+		private void LoadData()
 		{
-			using (conn)
+			using (var conn = new MySqlConnection("Server = localhost; database = rma_printer; UID = root; password = Sfn8tjpansv!;Max Pool Size=200"))
 			{
                 dataTable.Clear();
-                MySqlDataAdapter sqlDataAdapter = new MySqlDataAdapter("SELECT rmaid AS RMA, company_name AS 'Company Name', closed AS Closed, issue_date AS 'Issue Date', faulty_sn AS 'Faulty SN', replacement_sn AS 'Replacement SN', returned_date AS 'Returned Date', notes AS Notes, diagnosis AS Diagnosis, bulkink AS 'Bulk Ink?', issue_category AS 'Issue Catagory', result AS Result, approved AS Approved, printertid AS 'Printer Type', printer_stageid AS 'Stage' FROM printer", conn);
+                sqlDataAdapter = new MySqlDataAdapter("SELECT rmaid AS RMA, company_name AS 'Company Name', closed AS Closed, issue_date AS 'Issue Date', faulty_sn AS 'Faulty SN', replacement_sn AS 'Replacement SN', returned_date AS 'Returned Date', notes AS Notes, diagnosis AS Diagnosis, bulkink AS 'Bulk Ink?', issue_category AS 'Issue Catagory', result AS Result, approved AS Approved, printertid AS 'Printer Type', printer_stageid AS 'Stage' FROM printer", conn);
 				sqlDataAdapter.Fill(dataTable);
               
 				neuralabelReplacement_Printer.DataSource = dataTable;
@@ -67,36 +68,35 @@ namespace RmaPrinterTracker
             }
 		}
 
-        //
         private void RowColor(object sender, DataGridViewCellFormattingEventArgs e)
         {
             foreach(DataGridViewRow dataRow in neuralabelReplacement_Printer.Rows)
             {
-                string printerStage = dataRow.Cells[14].Value.ToString();
+                int printerStage = Convert.ToInt32(dataRow.Cells[14].Value) + 1;
                 switch (printerStage)
                 {
-                    case "1":
+                    case 1:
                         dataRow.DefaultCellStyle.BackColor = Color.Yellow;
                         break;
-                    case "2":
+                    case 2:
                         dataRow.DefaultCellStyle.BackColor = Color.LemonChiffon;
                         break;
-                    case "3":
+                    case 3:
                         dataRow.DefaultCellStyle.BackColor = Color.Green;
                         break;
-                    case "4":
+                    case 4:
                         dataRow.DefaultCellStyle.BackColor = Color.Teal;
                         break;
-                    case "5":
+                    case 5:
                         dataRow.DefaultCellStyle.BackColor = Color.PaleGreen;
                         break;
-                    case "6":
+                    case 6:
                         dataRow.DefaultCellStyle.BackColor = Color.Orange;
                         break;
-                    case "7":
+                    case 7:
                         dataRow.DefaultCellStyle.BackColor = Color.HotPink;
                         break;
-                    case "8":
+                    case 8:
                         dataRow.DefaultCellStyle.BackColor = Color.Gray;
                         break;
                 }
@@ -118,14 +118,22 @@ namespace RmaPrinterTracker
         {
             Form2 form2 = new Form2();
             form2.ShowDialog();
-            loadData();
+            LoadData();
         }
+
         //Refresh Button
         private void Button2_Click(object sender, EventArgs e)
         {
             dataTable.DefaultView.RowFilter = string.Empty;
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            adapter.Update(dataTable);
         }
 
+        /*
+         * The different serach filters 
+         * in the form to filter out the 
+         * data
+         */
         private void Rma_Text_TextChanged(object sender, EventArgs e)
         {
             dataTable.DefaultView.RowFilter = string.Format("Convert([{0}], 'System.String') LIKE '%{1}%'", "RMA", rma_Text.Text);
@@ -143,37 +151,78 @@ namespace RmaPrinterTracker
 
         private void Printertype_CBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dataTable.DefaultView.RowFilter = string.Format("[{0}] = {1}", "Printer Type", printertype_CBox.SelectedIndex + 1);
-        }
-
-        private void contextMenuDataGridView(object sender, DataGridViewCellContextMenuStripNeededEventArgs e)
-        {
-            
-        }
-
-        /*private void dataGridView1_MouseRightClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if(e.Button == MouseButtons.Right)
+            string rowFilterString = "";
+            switch((printertype_CBox.SelectedIndex) + 1)
             {
+                case 1:
+                    rowFilterString = "[{0}] IN (1, 4, 7, 10)";
+                    break;
+                case 2:
+                    rowFilterString = "[{0}] IN (2, 5, 8, 11)";
+                    break;
+                case 3:
+                    rowFilterString = "[{0}] IN (3, 6, 9, 12)";
+                    break;
+            }
+            dataTable.DefaultView.RowFilter = string.Format(rowFilterString, "Printer Type");
+        }
+
+
+        /* Creates the Context Menu upon right
+         * clicking in the DataGridView
+         */
+        private void DataGridView1_MouseRightClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                //Highlights the selected row
                 neuralabelReplacement_Printer.ClearSelection();
                 neuralabelReplacement_Printer.Rows[e.RowIndex].Selected = true;
+
+                //Creates the Context menu containing the edit and delete options
+                ContextMenuStrip handleEditAndDelete = new ContextMenuStrip();
+                handleEditAndDelete.Items.Add("Edit");
+                handleEditAndDelete.Items.Add("Delete");
+                handleEditAndDelete.ItemClicked += new ToolStripItemClickedEventHandler(this.ContextMenuClicked);
+
+                //Grabs the selected rows RMA to query
+                DataGridViewRow selectedRow = neuralabelReplacement_Printer.Rows[e.RowIndex];
+                selectedRowRmaNumber = selectedRow.Cells["RMA"].Value.ToString();
+
+                //Opens the context menu at the cursor location
+                var mouse = neuralabelReplacement_Printer.PointToClient(Cursor.Position);
+                handleEditAndDelete.Show(neuralabelReplacement_Printer, mouse);
             }
         }
 
-        private void ContextItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        /* 
+         * Adding the listeners to check which
+         * option the user clicks on
+         */
+        private void ContextMenuClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            ToolStripItem selected = e.ClickedItem;
-            if(selected.Text == "Edit")
+            ToolStripItem selectedContextMenu = e.ClickedItem;
+            if (selectedContextMenu.Text == "Edit")
             {
-                MessageBox.Show("Edit has been clicked");
-                string test = neuralabelReplacement_Printer.CurrentRow.Cells["RMA"].FormattedValue.ToString();
-                MessageBox.Show("You have selected " + test);
+/*                MessageBox.Show("Edit has been clicked");
+                MessageBox.Show("The message contains " + selectedRowRmaNumber);*/
+                Form2 editForm = new Form2();
+                editForm.FormClosed += new FormClosedEventHandler(Form2ClosedRefresh);
+                editForm.HandleEditForm(editForm, Convert.ToInt32(selectedRowRmaNumber));
             }
 
-            if(selected.Text == "Delete")
+            if(selectedContextMenu.Text == "Delete")
             {
                 MessageBox.Show("Delete has been clicked");
+
             }
-        }*/
+        }
+
+        //Refreshes the dataGridView in form 1 when form 2 closes from updating
+        private void Form2ClosedRefresh(object sender, FormClosedEventArgs e)
+        {
+            dataTable.Clear();
+            sqlDataAdapter.Fill(dataTable);
+        }
     }
 }
